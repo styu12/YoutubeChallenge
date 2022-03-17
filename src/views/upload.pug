@@ -1,0 +1,9 @@
+extends index.pug
+
+block content
+  h1=pageTitle
+  form(method="POST")
+    input(name="title", placeholder="Title", type="text", required)
+    textarea(name="synopsis", placeholder="Synopsis", required)
+    input(name="genre", placeholder="genres", type="text", required)
+    input(value="Upload Movie", type="submit")

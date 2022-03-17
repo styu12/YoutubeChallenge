@@ -3,6 +3,7 @@ import {
   getMovies,
   getMovieByMinimumRating,
   getMovieByMinimumYear,
+  addMovie,
 } from "./db";
 
 export const home = (req, res) => {
@@ -10,11 +11,11 @@ export const home = (req, res) => {
   return res.render("home", { pageTitle: "Movies!", movies });
 };
 
-export const movieDetail = (req, res) => {
+export const movieDetail = async (req, res) => {
   const { id } = req.params;
-  const movie = getMovieById(id);
+  const movie = await getMovieById(id);
   return res.render("detail", {
-    pageTitle: movie.title,
+    pageTitle: "Detail",
     movie,
   });
 };
@@ -34,4 +35,18 @@ export const filterMovie = (req, res) => {
     pageTitle = "Movies!";
   }
   return res.render("filter", { pageTitle, movies });
+};
+
+export const getUpload = (req, res) => {
+  return res.render("upload", { pageTitle: "Upload Movie" });
+};
+
+export const postUpload = (req, res) => {
+  const { title, synopsis, genre } = req.body;
+  const genres = genre.split(",");
+  console.log(title, synopsis, genres);
+  const data = { title, synopsis, genres };
+  console.log(data);
+  addMovie(data);
+  return res.redirect("/");
 };

@@ -2,4 +2,7 @@ extends index.pug
 
 block content
     h2=movie.title
-    h4=movie.summary
+    h4=movie.synopsis 
+    ul 
+        each genre in movie.genres 
+            li=genre
